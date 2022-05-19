@@ -20,3 +20,7 @@ def signup(request):
 
 def page_not_found(request, exception):
     return render(request, 'common/404.html', {})
+
+
+def handler500(request, exception):
+    return render(request, 'common/500.html', {})
