@@ -10,7 +10,7 @@ DEBUG = False
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / '.env')
 
-DATABASES ={
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': env('DB_NAME'),
