@@ -51,7 +51,7 @@
   <h5 class="border-bottom my-3 py-2">
     {{question.answer_set.count}}개의 답변이 있습니다.
   </h5>
-  {% for answer in question.answer_set.all %}
+  {% for answer in answer_set %}
   <a id="answer_{{ answer.id }}"></a>
   <div class="card my-3">
     <div class="card-body">
@@ -88,6 +88,47 @@
     </div>
   </div>
   {% endfor %}
+  <!-- 페이징처리 시작 -->
+  <ul class="pagination justify-content-center">
+    <!-- 이전 페이지 -->
+    {% if answer_set.has_previous %}
+      <li class="page-item">
+        <a class="page-link" data-page="{{ answer_set.previous_page_number }}" href="javascript:void(0)">이전</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+      </li>
+    {% endif %}
+    <!-- 페이지리스트 -->
+    {% for page_number in answer_set.paginator.page_range %}
+      {% if page_number >= answer_set.number|add:-5 and page_number|add:5 %}
+        {% if page_number == answer_set.number %}
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" data-page="{{ page_number }}" href="javascript:void(0)">{{ page_number }}</a>
+          </li>
+        {% else %}
+          <li class="page-item">
+            <a class="page-link" data-page="{{ page_number }}" href="javascript:void(0)">{{ page_number }}</a>
+          </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    <!-- 다음 페이지 -->
+    {% if answer_set.has_next %}
+      <li class="page-item">
+        <a class="page-link" data-page="{{ question_list.next_page_number }}" href="javascript:void(0)">다음</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+      </li>
+    {% endif %}
+  </ul>
+  <!-- 페이징처리 끝-->
+  <form id="searchForm" method="get" action="{% url 'pybo:detail' question.id %}">
+    <input type="hidden" id="page" name="page" value="{{ page }}">
+  </form>
   <!-- 답변 등록 -->
   <form
     action="{% url 'pybo:answer_create' question.id %}"
@@ -138,6 +179,13 @@
       if (confirm("정말로 추천하시겠습니까?")) {
         location.href = this.dataset.uri;
       };
+    });
+  });
+  const page_elements = document.getElementsByClassName('page-link');
+  Array.from(page_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+      document.getElementById('page').value = this.dataset.page;
+      document.getElementById('searchForm').submit()
     });
   });
 </script>
