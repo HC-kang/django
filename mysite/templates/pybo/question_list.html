@@ -40,7 +40,7 @@
                 {% endif %}
               </td>
               <td>{{ question.author.username }}</td>
-              <td>{{ question.create_date }}</td>
+              <td>{{ question.create_date|format_date }}</td>
             </tr>
           {% endfor %}
         {% else %}
