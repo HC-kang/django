@@ -50,8 +50,8 @@ def answer_modify(request, answer_id):
 @login_required(login_url='common:login')
 def answer_delete(request, answer_id):
     answer = get_object_or_404(Answer, pk=answer_id)
-    if request.user != answer.author:
-        messages.error(request, '삭제권한이 없습니다')
+    if request.user != answer.author and not request.user.is_superuser:
+        messages.error(request, '삭제 권한이 없습니다')
     else:
         answer.delete()
     return redirect('pybo:detail', question_id=answer.question.id)

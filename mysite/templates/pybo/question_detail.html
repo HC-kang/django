@@ -40,6 +40,9 @@
            class="btn btn-sm btn-outline-secondary">수정</a>
         <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
            data-uri="{% url 'pybo:question_delete' question.id %}">삭제</a>
+        {% elif request.user.is_superuser %}
+        <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+           data-uri="{% url 'pybo:question_delete' question.id %}">삭제</a>
         {% endif %}
       </div>
     </div>
@@ -75,6 +78,9 @@
         {% if request.user == answer.author %}
         <a href="{% url 'pybo:answer_modify' answer.id %}"
            class="btn btn-sm btn-outline-secondary">수정</a>
+        <a href="#" class="delete btn btn-sm btn-outline-secondary"
+           data-uri="{% url 'pybo:answer_delete' answer.id %}">삭제</a>
+        {% elif request.user.is_superuser %}
         <a href="#" class="delete btn btn-sm btn-outline-secondary"
            data-uri="{% url 'pybo:answer_delete' answer.id %}">삭제</a>
         {% endif %}
