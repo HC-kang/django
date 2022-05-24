@@ -44,6 +44,33 @@
         <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
            data-uri="{% url 'pybo:question_delete' question.id %}">삭제</a>
         {% endif %}
+        <!-- 질문 댓글 Start -->
+        {% if question.comment_set.count > 0 %}
+          <div class="mt-3">
+            {% for comment in question.comment_set.all %}  <!-- 등록한 댓글을 출력 -->
+              <a id="comment_{{ comment.id }}"></a>
+              <div class="comment py-2 text-muted">  <!-- 댓글 각각에 comment 스타일 지정 -->
+                <span style="white-space: pre-line;">{{ comment.content }}</span>
+                <span>
+                    - {{ comment.author }}, {{ comment.create_date|format_date }}
+                    {% if comment.modify_date %}
+                    (수정: {{ comment.modify_date|format_date }})
+                    {% endif %}
+                </span>
+                {% if request.user == comment.author %}
+                  <a href="{% url 'pybo:comment_modify_question' comment.id  %}" class="small">수정</a>,
+                  <a href="#" class="small delete" 
+                    data-uri="{% url 'pybo:comment_delete_question' comment.id  %}">삭제</a>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        <div>
+          <a href="{% url 'pybo:comment_create_question' question.id  %}" 
+            class="small"><small>댓글 추가 ..</small></a>  <!-- 댓글 추가 링크 -->
+        </div>
+        <!-- 질문 댓글 End -->
       </div>
     </div>
   </div>
@@ -84,32 +111,33 @@
         <a href="#" class="delete btn btn-sm btn-outline-secondary"
            data-uri="{% url 'pybo:answer_delete' answer.id %}">삭제</a>
         {% endif %}
-        <!-- 질문 댓글 Start -->
-        {% if question.comment_set.count > 0 %}
-          <div class="mt-3">
-            {% for comment in question.comment_set.all %}  <!-- 등록한 댓글을 출력 -->
-              <div class="comment py-2 text-muted">  <!-- 댓글 각각에 comment 스타일 지정 -->
-                <span style="white-space: pre-line;">{{ comment.content }}</span>
-                <span>
-                    - {{ comment.author }}, {{ comment.create_date|format_date }}
-                    {% if comment.modify_date %}
-                    (수정: {{ comment.modify_date|format_date }})
-                    {% endif %}
-                </span>
-                {% if request.user == comment.author %}
-                  <a href="{% url 'pybo:comment_modify_question' comment.id  %}" class="small">수정</a>,
-                  <a href="#" class="small delete" 
-                    data-uri="{% url 'pybo:comment_delete_question' comment.id  %}">삭제</a>
-                {% endif %}
-              </div>
-            {% endfor %}
+        <!-- 답변 댓글 Start -->
+        {% if answer.comment_set.count > 0 %}
+        <div class="mt-3">
+        {% for comment in answer.comment_set.all %}
+          <a id="comment_{{ comment.id }}"></a>
+          <div class="comment py-2 text-muted">
+            <span style="white-space: pre-line;">{{ comment.content }}</span>
+            <span>
+              - {{ comment.author }}, {{ comment.create_date|format_date }}
+              {% if comment.modify_date %}
+              (수정: {{ comment.modify_date|format_date }})
+              {% endif %}
+            </span>
+            {% if request.user == comment.author %}
+            <a href="{% url 'pybo:comment_modify_answer' comment.id  %}" class="small">수정</a>,
+            <a href="#" class="small delete"
+              data-uri="{% url 'pybo:comment_delete_answer' comment.id  %}">삭제</a>
+            {% endif %}
           </div>
+        {% endfor %}
+        </div>
         {% endif %}
         <div>
-          <a href="{% url 'pybo:comment_create_question' question.id  %}" 
-            class="small"><small>댓글 추가 ..</small></a>  <!-- 댓글 추가 링크 -->
+            <a href="{% url 'pybo:comment_create_answer' answer.id  %}"
+               class="small"><small>댓글 추가 ..</small></a>
         </div>
-        <!-- 질문 댓글 End -->
+        <!-- 답변 댓글 End -->
       </div>
     </div>
   </div>
