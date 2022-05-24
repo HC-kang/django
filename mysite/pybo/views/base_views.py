@@ -31,7 +31,7 @@ def index(request):
 def detail(request, question_id):
     page = request.GET.get('page', '1')
     question = get_object_or_404(Question, pk=question_id)
-    answer_set = Answer.objects.filter(Q(question_id=question.id)).order_by('create_date')
+    answer_set = Answer.objects.filter(Q(question_id=question.id)).order_by('-create_date')
     paginator = Paginator(answer_set, 5)
     page_obj = paginator.get_page(page)
     context = {'question': question, 'answer_set': page_obj, 'page': page}

@@ -66,3 +66,4 @@ def answer_vote(request, answer_id):
         answer.voter.add(request.user)
     return redirect('{}#answer_{}'.format(
                 resolve_url('pybo:detail', question_id=answer.question.id), answer.id))
+    
