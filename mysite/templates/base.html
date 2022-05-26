@@ -21,9 +21,15 @@
   <body>
     <!-- 네이게이션바 -->
     {% include "navbar.html" %}
-    <!-- 기본 템플릿 안에 삽입될 내용 Start -->
-    {% block content %} {% endblock %}
+    <div class="flex-row" style="display: flex; height: 95vh">
+      {% comment %} <!-- 사이드 메뉴 -->
+      {% include "menu.html" %} {% endcomment %}
+      <!-- 기본 템플릿 안에 삽입될 내용 Start -->
+      {% block content %} {% endblock %}
+    </div>
     <!-- 기본 템플릿 안에 삽입될 내용 End -->
+    <!-- 푸터 -->
+    {% include "footer.html" %}
     <!-- Bootstrap JS -->
     <script src="{% static 'bootstrap.min.js' %}"></script>
     <!-- 자바스크립트 Start -->

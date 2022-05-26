@@ -1,7 +1,7 @@
 <!-- 네비게이션바 -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 5vh">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'pybo:index' %}">Fobo</a>
+    <a class="navbar-brand" href="{% url 'pybo:index' %}" style="margin-left: 2vw">Fobo</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -14,7 +14,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="nav navbar-nav ml-auto">
         <li class="nav-item">
           {% if user.is_authenticated %}
           <a class="nav-link" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>

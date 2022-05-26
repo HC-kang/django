@@ -67,8 +67,9 @@
           </div>
         {% endif %}
         <div>
+          <!-- 댓글 링크 -->
           <a href="{% url 'pybo:comment_create_question' question.id  %}" 
-            class="small"><small>댓글 추가 ..</small></a>  <!-- 댓글 추가 링크 -->
+            class="small"><small>댓글달기</small></a>  
         </div>
         <!-- 질문 댓글 End -->
       </div>
@@ -135,7 +136,7 @@
         {% endif %}
         <div>
             <a href="{% url 'pybo:comment_create_answer' answer.id  %}"
-               class="small"><small>댓글 추가 ..</small></a>
+               class="small"><small>댓글달기</small></a>
         </div>
         <!-- 답변 댓글 End -->
       </div>
@@ -213,7 +214,8 @@
         name="content"
         id="content" 
         class="form-control" 
-        rows="5"></textarea>
+        rows="5">
+      </textarea>
     </div>
     <input type="submit" value="답변등록" class="btn btn-primary" />
   </form>
