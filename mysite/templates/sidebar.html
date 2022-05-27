@@ -1,0 +1,32 @@
+<!-- Sidebar  -->
+<nav id="sidebar" class="border-top border-secondary">
+    <div class="list-group">
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light {% if category.name == 'qna'  %}active{% endif %}" href="#">질문과답변</a>
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light {% if category.name == 'free' %}active{% endif %}" href="#">자유게시판</a>
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light {% if category.name == 'tip'  %}active{% endif %}" href="#">팁과강좌</a>
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light {% if category.name == 'quiz' %}active{% endif %}" href="#">파이썬퀴즈</a>
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light {% if category.name == 'bug' %}active{% endif %}" href="#">버그및건의</a>
+    </div>
+</nav>
+
+<ul class="my-3 small" style="padding-left:2em;">
+    <li class="my-1"><a href="https://wikidocs.net/book/1" target="_blank">점프 투 파이썬</a></li>
+    <li class="my-1"><a href="https://wikidocs.net/book/4223" target="_blank">점프 투 장고</a></li>
+    <li class="my-1"><a href="https://wikidocs.net/book/4542" target="_blank">점프 투 플라스크</a></li>
+</ul>
+
+
+{% comment %} <!-- Sidebar  -->
+<nav id="sidebar" class="border-top border-secondary">
+    <div class="list-group">
+        {% for cat in category_list %}
+            {% if cat == category %}
+                <a class="rounded-0 list-group-item list-group-item-action list-group-item-light active"
+                   href="{{ cat.get_absolute_url }}">{{ cat.description }}</a>
+            {% else %}
+                <a class="rounded-0 list-group-item list-group-item-action list-group-item-light"
+                   href="{{ cat.get_absolute_url }}">{{ cat.description }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</nav> {% endcomment %}

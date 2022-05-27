@@ -3,10 +3,13 @@
 {% block content %}
   <div class="container my-3">
     <div class="row my-3">
-      <div class="col-6">
+      {% comment %} <div class="col-1">
+        <a class="btn btn-primary">카테고리</a>
+      </div> {% endcomment %}
+      <div class="col-3">
         <a href="{% url 'pybo:question_create' %}" class="btn btn-primary">질문 등록하기</a>
       </div>
-      <div class="col-6">
+      <div class="col-9">
         <div class="input-group">
           <input type="text" id="search_kw" class="form-control" value="{{ kw|default_if_none:'' }}">
           <div class="input-group-append">
