@@ -3,11 +3,14 @@
 {% block content %}
   <div class="container my-3">
     <div class="row my-3">
-      {% comment %} <div class="col-1">
-        <a class="btn btn-primary">카테고리</a>
-      </div> {% endcomment %}
       <div class="col-3">
-        <a href="{% url 'pybo:question_create' %}" class="btn btn-primary">질문 등록하기</a>
+        <a href="{% url 'pybo:question_create' %}" class="btn btn-primary">
+          {% if category.description == '질문과답변' %}
+            질문 남기기
+          {% else %}
+            게시글 등록
+          {% endif %}
+        </a>
       </div>
       <div class="col-9">
         <div class="input-group">

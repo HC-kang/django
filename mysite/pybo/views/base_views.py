@@ -2,17 +2,23 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 
-from ..models import Answer, Question
+from ..models import Answer, Question, Category
 
 import logging
 logger = logging.getLogger('pybo')
 
 
-def index(request):
+def index(request, category_name='qna'):
     logger.info('INFO 레벨로 출력')
     page = request.GET.get('page', '1')
     kw = request.GET.get('kw', '')
-    question_list = Question.objects.order_by('-create_date')
+    
+    category_list = Category.objects.all()
+    category = get_object_or_404(Category, name=category_name)
+    question_list = Question.objects.filter(category=category)
+    
+    question_list = question_list.order_by('-create_date')
+    
     if kw:
         question_list = question_list.filter(
             Q(subject__icontains=kw) |  
@@ -23,7 +29,8 @@ def index(request):
         ).distinct()
     paginator = Paginator(question_list, 10)
     page_obj = paginator.get_page(page)
-    context = {'question_list': page_obj, 'page': page, 'kw': kw}
+    context = {'question_list': page_obj, 'page': page, 'kw': kw,
+               'category_list': category_list, 'category': category}
     # context = {'question_list': question_list}
     return render(request, 'pybo/question_list.html', context)
 
